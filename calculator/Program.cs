@@ -71,6 +71,6 @@ public class Program
         }
 
         // prevent the program from exiting by user input
-        Console.ReadKey();
+        // Console.ReadKey();
     }
 }
