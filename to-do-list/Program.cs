@@ -34,6 +34,8 @@ class Program
                     break;
                     case 3: Update();
                     break;
+                    case 4: Delete();
+                    break;
                     default: Console.WriteLine("invalid action");
                     break;
                 }
@@ -53,10 +55,7 @@ class Program
             // #2 open connection
             connection.Open();
             // #3 query
-            string queryString = @"
-            SELECT task_id, task_desc, status_desc 
-            FROM [todo].[task] as task 
-            INNER JOIN [todo].[status] AS stat ON stat.status_id = task.status_id";
+            string queryString = "SELECT * FROM [todo].[v_task];";
 
             // #4 initialize the command instance with query and connection params
             SqlCommand command = new SqlCommand(queryString, connection);  
@@ -124,9 +123,9 @@ class Program
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
             connection.Open();
-            Console.WriteLine("enter task id: ");
+            Console.Write("enter task id: ");
             int task_id = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("1 - to-do, 2 - wip, 3 - done\n enter new status: ");
+            Console.Write("1 - to-do, 2 - wip, 3 - done\nenter new status: ");
             int status_id = Convert.ToInt32(Console.ReadLine());
             string queryString = $@"
             UPDATE [todo].[task]
@@ -136,6 +135,20 @@ class Program
             int rowsAffected = command.ExecuteNonQuery();
             Console.WriteLine($"rows affected: {rowsAffected}");
         }
-
+    }
+    static void Delete()
+    {
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            connection.Open();
+            Console.WriteLine("enter task id: ");
+            int task_id = Convert.ToInt32(Console.ReadLine());
+            string queryString = $@"
+            DELETE FROM [todo].[task]
+            WHERE task_id = {task_id};";
+            SqlCommand command = new SqlCommand(queryString, connection);
+            int rowsAffected = command.ExecuteNonQuery();
+            Console.WriteLine($"rows affected: {rowsAffected}");
+        }
     }
 }
