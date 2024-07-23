@@ -14,11 +14,15 @@ class Program
         Console.WriteLine("welcome to to-do list");
         while (run)
         {
-            Console.WriteLine("(1 - add task, 2 - show tasks, 0 - exit)");
+            Console.WriteLine("\n(1 - add task, 2 - show tasks, 3 - update task, 0 - exit)");
             Console.Write("choose action: ");
+            // catch every error that is in this statement or in the methods in this statement
             try 
             {
+                // action user input
                 int action = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("");
+
                 switch(action)
                 {
                     case 0: Console.WriteLine("bye!");
@@ -27,6 +31,8 @@ class Program
                     case 1: Create();
                     break;
                     case 2: Read();
+                    break;
+                    case 3: Update();
                     break;
                     default: Console.WriteLine("invalid action");
                     break;
@@ -69,17 +75,24 @@ class Program
             // show data of each column assigned to reader
             while(reader.Read() == true)
             {
-                // if null in sql then empty string, ternary: type value = condition ? then : else
-                string task_id = (reader["task_id"] != DBNull.Value ? reader["task_id"].ToString() : string.Empty);
-                string task_desc = (reader["task_desc"] != DBNull.Value ? reader["task_desc"].ToString() : string.Empty);
-                string status_desc = (reader["status_desc"] != DBNull.Value ? reader["status_desc"].ToString() : string.Empty);
-                string[] columns = [task_id, task_desc, status_desc];
-                 // print row lines
+                // List object with elements of type string
+                List<string> columnList = new List<string>();
+
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    // ?? = isnull then
+                    string tmp = Convert.ToString(reader[i]) ?? string.Empty;
+                    columnList.Add(tmp);
+                }
+                string[] columns = columnList.ToArray();
+
+                // print row lines
                 for (int i = 0; i <= (columnWidth * columns.Length); i++)
                 {
                     Console.Write("-");
                 }
                 Console.WriteLine("");
+
                 // print table rows in console table format
                 for (int i = 0; i < columns.Length; i++)
                 {
@@ -96,7 +109,7 @@ class Program
         {
             connection.Open();
             Console.Write("enter task name: ");
-            string val = Console.ReadLine();
+            string val = Console.ReadLine() ?? string.Empty;
             string queryString = $@"
             INSERT INTO [todo].[task] (task_desc, status_id) 
             VALUES ('{val}', 1);";
@@ -105,5 +118,24 @@ class Program
             int rowsAffected = command.ExecuteNonQuery();
             Console.WriteLine($"rows affected: {rowsAffected}");
         }
+    }
+    static void Update()
+    {
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            connection.Open();
+            Console.WriteLine("enter task id: ");
+            int task_id = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("1 - to-do, 2 - wip, 3 - done\n enter new status: ");
+            int status_id = Convert.ToInt32(Console.ReadLine());
+            string queryString = $@"
+            UPDATE [todo].[task]
+            SET status_id = {status_id}
+            WHERE task_id = {task_id};";
+            SqlCommand command = new SqlCommand(queryString, connection);
+            int rowsAffected = command.ExecuteNonQuery();
+            Console.WriteLine($"rows affected: {rowsAffected}");
+        }
+
     }
 }
