@@ -14,7 +14,7 @@ class Program
         Console.WriteLine("welcome to to-do list");
         while (run)
         {
-            Console.WriteLine("\n(1 - add task, 2 - show tasks, 3 - update task, 0 - exit)");
+            Console.WriteLine("\n(1 - add task, 2 - show tasks, 3 - update task, 4 - delete task, 0 - exit)");
             Console.Write("choose action: ");
             // catch every error that is in this statement or in the methods in this statement
             try 
@@ -63,7 +63,7 @@ class Program
             SqlDataReader reader = command.ExecuteReader();
 
             // print table header in console table format
-            string[] columnNames = ["task_id", "task_desc", "status_desc"];
+            string[] columnNames = ["task_id", "task_desc", "status_desc", "add_date"];
             int columnWidth = 15; // adjust the column width
             for (int i = 0; i < columnNames.Length; i++)
             {
@@ -110,8 +110,8 @@ class Program
             Console.Write("enter task name: ");
             string val = Console.ReadLine() ?? string.Empty;
             string queryString = $@"
-            INSERT INTO [todo].[task] (task_desc, status_id) 
-            VALUES ('{val}', 1);";
+            INSERT INTO [todo].[task] (task_desc, status_id, add_date) 
+            VALUES ('{val}', 1, getdate());";
             SqlCommand command = new SqlCommand(queryString, connection);
             // ExecuteNonQuery() returns number of affected rows or -1 for DDL;
             int rowsAffected = command.ExecuteNonQuery();
