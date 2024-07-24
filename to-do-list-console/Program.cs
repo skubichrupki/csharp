@@ -16,7 +16,7 @@ class Program
         await seeder.SeedDatabase();
 
         bool run = true;
-        Console.WriteLine("welcome to to-do list");
+        Console.WriteLine("welcome");
         while (run)
         {
             Console.WriteLine("\n1 - add task, 2 - show tasks, 3 - update task, 4 - delete task, 0 - exit");
