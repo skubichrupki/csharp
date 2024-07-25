@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "calculator", "calculator\calculator.csproj", "{2EC13E4C-E28A-47AE-8F85-3164E41C3BF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "to-do-list-console", "to-do-list-console\to-do-list.csproj", "{2EC13E4C-E28A-47AE-8F85-3164E41C3BF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

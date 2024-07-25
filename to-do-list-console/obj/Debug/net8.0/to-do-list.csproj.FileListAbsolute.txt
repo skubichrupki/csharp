@@ -44,3 +44,4 @@ C:\Users\michalskupinski\Downloads\code\csharp\to-do-list-console\obj\Debug\net8
 C:\Users\michalskupinski\Downloads\code\csharp\to-do-list-console\obj\Debug\net8.0\to-do-list.pdb
 C:\Users\michalskupinski\Downloads\code\csharp\to-do-list-console\obj\Debug\net8.0\to-do-list.genruntimeconfig.cache
 C:\Users\michalskupinski\Downloads\code\csharp\to-do-list-console\obj\Debug\net8.0\ref\to-do-list.dll
+C:\Users\michalskupinski\Downloads\code\csharp\to-do-list-console\bin\Debug\net8.0\Dapper.dll

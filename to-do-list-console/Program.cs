@@ -10,8 +10,7 @@ class Program
 
     static async Task Main(string[] args)
     {
-
-        // seed the database
+        // seed the database with ADO.NET
         DatabaseSeeder seeder = new DatabaseSeeder(connectionString);
         await seeder.SeedDatabase();
 
@@ -47,7 +46,7 @@ class Program
             }
             catch (Exception e)
             {
-                Console.WriteLine($"error: {e} \n try again");
+                Console.WriteLine($"error: {e.Message} \n try again");
             }
         }
     }
@@ -146,7 +145,7 @@ class Program
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
             connection.Open();
-            Console.WriteLine("enter task id: ");
+            Console.Write("enter task id: ");
             int task_id = Convert.ToInt32(Console.ReadLine());
             string queryString = $@"
             DELETE FROM [todo].[task]
