@@ -12,8 +12,9 @@ class Program
         DatabaseRepo databaseRepo = new DatabaseRepo(connectionString);
 
         // delete task
-        TaskTable delete = new TaskTable {TaskId = 1}; // same as delete.TaskId = 1
-        await databaseRepo.Delete(delete);
-        Console.WriteLine($"task with id {delete.TaskId} deleted");
+        Console.Write("enter task id: ");
+        int taskId = Convert.ToInt32(Console.ReadLine());
+        TaskTable taskTableDelete = new TaskTable {TaskId = taskId}; // same as delete.TaskId = taskId
+        await databaseRepo.Delete(taskTableDelete);
     }
 }

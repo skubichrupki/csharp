@@ -14,10 +14,9 @@ public class DatabaseRepo
     // delete
     public async Task Delete(TaskTable taskTable)
     {
-        using (SqlConnection connection = new SqlConnection(connectionString))
-        {
-            string query = "DELETE FROM [todo].[task] WHERE task_id = @TaskId";
-            await connection.ExecuteAsync(query, new {TaskId = taskTable.TaskId});
-        }
+        using SqlConnection connection = new SqlConnection(connectionString);
+        string query = "DELETE FROM [todo].[task] WHERE task_id = @TaskId";
+        int rowsAffected = await connection.ExecuteAsync(query, new {TaskId = taskTable.TaskId});
+        Console.WriteLine(rowsAffected);
     }
 }

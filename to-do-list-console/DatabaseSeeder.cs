@@ -63,4 +63,16 @@ public class DatabaseSeeder
             Console.WriteLine($"error: {e}\ndatabase not seeded");
         }
     }
+
+    public async Task Delete(int taskId)
+    {
+        // SqlConnection object
+        using SqlConnection connection = new SqlConnection(connectionString);
+        await connection.OpenAsync();
+        string query = $"DELETE FROM [todo].[task] WHERE task_id = {taskId};";
+        // SqlCommand object
+        using SqlCommand command = new SqlCommand(query, connection);
+        int rowsAffected = await command.ExecuteNonQueryAsync();
+        Console.WriteLine(rowsAffected);
+    }
 }

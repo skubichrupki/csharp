@@ -38,7 +38,10 @@ class Program
                     break;
                     case 3: Update();
                     break;
-                    case 4: Delete();
+                    case 4:
+                        Console.Write("enter task id: ");
+                        int taskId = Convert.ToInt32(Console.ReadLine()); 
+                        await seeder.Delete(taskId);
                     break;
                     default: Console.WriteLine("invalid action");
                     break;
@@ -134,21 +137,6 @@ class Program
             string queryString = $@"
             UPDATE [todo].[task]
             SET status_id = {status_id}
-            WHERE task_id = {task_id};";
-            SqlCommand command = new SqlCommand(queryString, connection);
-            int rowsAffected = command.ExecuteNonQuery();
-            Console.WriteLine($"rows affected: {rowsAffected}");
-        }
-    }
-    static void Delete()
-    {
-        using (SqlConnection connection = new SqlConnection(connectionString))
-        {
-            connection.Open();
-            Console.Write("enter task id: ");
-            int task_id = Convert.ToInt32(Console.ReadLine());
-            string queryString = $@"
-            DELETE FROM [todo].[task]
             WHERE task_id = {task_id};";
             SqlCommand command = new SqlCommand(queryString, connection);
             int rowsAffected = command.ExecuteNonQuery();
