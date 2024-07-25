@@ -2,11 +2,11 @@ using System.Data;
 using System.Data.SqlClient;
 using Dapper;
 
-public class DatabaseRepo
+public class DbContext
 {
     public readonly string connectionString;
 
-    public DatabaseRepo(string connectionString)
+    public DbContext(string connectionString)
     {
         this.connectionString = connectionString;
     }

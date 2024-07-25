@@ -11,8 +11,8 @@ class Program
     static async Task Main(string[] args)
     {
         // seed the database with ADO.NET
-        DatabaseSeeder seeder = new DatabaseSeeder(connectionString);
-        await seeder.SeedDatabase();
+        DbContext dbContext = new DbContext(connectionString);
+        await dbContext.SeedDatabase();
 
         bool run = true;
         Console.WriteLine("welcome");
@@ -41,7 +41,7 @@ class Program
                     case 4:
                         Console.Write("enter task id: ");
                         int taskId = Convert.ToInt32(Console.ReadLine()); 
-                        await seeder.Delete(taskId);
+                        await dbContext.Delete(taskId);
                     break;
                     default: Console.WriteLine("invalid action");
                     break;

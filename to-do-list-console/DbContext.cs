@@ -3,12 +3,12 @@ using System.Data.SqlClient;
 
 namespace to_do_list;
 
-public class DatabaseSeeder
+public class DbContext
 {
     private readonly string connectionString;
 
     // constructor to accept arguments from Program.cs
-    public DatabaseSeeder(string connectionString)
+    public DbContext(string connectionString)
     {
         this.connectionString = connectionString;
     }
