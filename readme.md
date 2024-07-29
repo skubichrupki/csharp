@@ -2,6 +2,6 @@
 
 to do app using ADO.NET
 
-### to-do-list-console-dapper
+### to-do-list-console-ef
 
-to do app using Dapper
+to do app using Entity Framework
